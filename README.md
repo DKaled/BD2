@@ -23,4 +23,4 @@ El sistema web traerá en sí mismo un sistema CRUD para el uso correcto de la b
 
 ## DER
 
-<div style="width: 960px; height: 720px; margin: 10px; position: relative;"><iframe allowfullscreen frameborder="0" style="width:960px; height:720px" src="https://lucid.app/documents/embeddedchart/a46f589c-052a-43be-ae25-67c06dc35e3b" id="0PuB_VVDjNqx"></iframe></div>
+![DER](/img/DER.png)
