@@ -5,12 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página principal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <script src="scripts.js"></script>
 </head>
 <body>
-    <h2 class="title">Iniciar sesión</h2>
-    <p class="common-letter">Usuario</p>
-    <input type="text" name="tBUser" id="tBUser" placeholder="Usuario">
-    <p class="common-letter">Contraseña</p>
-    <input type="text" name="tBPass" id="tBPass" placeholder="Contraseña">
+    <div id="background"></div>
+    <div id="login">
+        <div>
+            <h2 class="title">Iniciar sesión</h2>
+            <div>
+                <label for="user" class="text">Usuario</label>
+                <input type="text" name="tbUser" id="user" placeholder="Usuario">
+                <span><i id="userIcon" class="fas fa-user"></i></span>
+                <label for="pass" class="text">Contraseña</label>
+                <input type="password" name="tbPass" id="pass" placeholder="Contraseña">
+                <span><i id="eyePassIcon" class="fas fa-eye" onclick="togglePass()"></i></span>
+            </div>
+            <div>
+                <input type="submit" id="btnSubmit" class="btn format" value="Iniciar sesión" onclick="button()">
+            </div>
+        </div>
+    </div>
 </body>
 </html>
