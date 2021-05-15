@@ -1,0 +1,78 @@
+body {
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#background {
+    background: url(img/FondoLogin.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    filter: blur(3px);
+}
+
+#login {
+    background-color: teal;
+    margin: auto;
+    display: block;
+    position: absolute;
+    width: 50%;
+    max-width: 350px;
+    height: 470px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(105,9,121,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+#login div {
+    text-align: center;
+    justify-content: center;
+}
+
+.text {
+    display: block;
+    color: white;
+}
+
+input {
+    font-size: 18px;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 3px;
+}
+
+.title {
+    padding: 10px;
+    color: white;
+    font-size: 3em;
+}
+
+.btn, .text {
+    margin: 10px;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+span {
+    position: absolute;
+    transform: translate(-150%, 50%);
+    cursor: pointer;
+}
+
+span #userIcon {
+    cursor: default;
+}
+
+.fas {
+    font-size: 20px;
+}
+
+#backgroundImg {
+    width: 100%;
+    height: 100%;
+}
