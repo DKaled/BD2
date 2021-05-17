@@ -5,27 +5,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página principal</title>
+    <script src="jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/bootstrap-5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+
     <script src="scripts.js"></script>
+    <script src="/bootstrap-5.0.1/js/bootstrap.bundle.min.js"></script>
+    <script src="/bootstrap-5.0.1/js/bootstrap.min.js"></script>
 </head>
 <body>
     <div id="background"></div>
-    <div id="login">
-        <div>
-            <h2 class="title">Iniciar sesión</h2>
-            <div>
+    <div class="login-container">
+        <div class="login">
+            <form id="loginForm" class="login-form" action="" method="post">
+                <label class="login-title">Iniciar Sesión</label>
                 <label for="user" class="text">Usuario</label>
-                <input type="text" name="tbUser" id="user" placeholder="Usuario">
-                <span><i id="userIcon" class="fas fa-user"></i></span>
+                <div class="user-input">
+                    <input type="text" name="user" id="user" placeholder="Usuario">
+                    <span class="user-icon input-group-text"><i id="userIcon" class="fas fa-user"></i></span>
+                </div>
                 <label for="pass" class="text">Contraseña</label>
-                <input type="password" name="tbPass" id="pass" placeholder="Contraseña">
-                <span><i id="eyePassIcon" class="fas fa-eye" onclick="togglePass()"></i></span>
-            </div>
-            <div>
-                <input type="submit" id="btnSubmit" class="btn format" value="Iniciar sesión" onclick="button()">
-            </div>
+                <div class="pass-input">
+                    <input type="password" name="pass" id="pass" placeholder="Contraseña" data-toggle="password">
+                    <div class="input-group-append">
+                        <span class="eye-pass-icon input-group-text"><i id="eyePassIcon" class="fas fa-eye" onclick="togglePass()"></i></span>
+                    </div>
+                </div>
+                <div class="btn-container">
+                    <button class="login-btn" type="submit" name="submit">Conectar</button>
+                </div>
+            </form>
         </div>
-    </div>
+    </div>  
+
 </body>
 </html>
