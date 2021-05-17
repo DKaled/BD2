@@ -1,7 +1,13 @@
 var userName, pass;
+
+window.onload = function hola() { //cambiar nombre
+    document.getElementById("background").style.height = innerHeight + "px";
+    document.getElementById("background").style.width = innerWidth + "px";
+}
+
 function button() {
-    userName = document.getElementById("user").value;
-    pass = document.getElementById("pass").value;
+    //userName = document.getElementById("user").value;
+    //pass = document.getElementById("pass").value;
     alert("Usuario: " + userName + "\n" + "Contraseña: " + pass);
 }
 
@@ -16,7 +22,16 @@ function togglePass() {
     }
 }
 
-window.onload = function hola() {
-    document.getElementById("background").style.height = innerHeight + "px";
-    document.getElementById("background").style.width = innerWidth + "px";
-}
+$(document).ready(function() {
+    $("#loginForm").submit(function(error) {
+        error.preventDefault();
+        userName = $.trim($("#user").val());
+        pass = $.trim($("#pass").val());
+        alert("Usuario: " + userName + "\n" + "Contraseña: " + pass);
+
+        if (userName.length == "" || pass.length == "") {
+            alert("Datos vacios");
+        }
+    })
+})
+
