@@ -1,8 +1,32 @@
-body {
-    display: flex;
-    margin: 0px;
-    padding: 0px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+@font-face {
+    font-family: Poppins-Regular;
+    src: url('fuentes/poppins/Poppins-Regular.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Poppins-Medium;
+    src: url('fuentes/poppins/Poppins-Medium.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Poppins-Bold;
+    src: url('fuentes/poppins/Poppins-Bold.ttf'); 
+  }
+  
+  @font-face {
+    font-family: Poppins-SemiBold;
+    src: url('fuentes/poppins/Poppins-SemiBold.ttf'); 
+  }
+
+*{
+	margin: 0px; 
+	padding: 0px; 
+	/*box-sizing: border-box;*/
+}
+
+body, html {
+    height: 100%;
+	font-family: Poppins-Regular, sans-serif;
 }
 
 #background {
@@ -12,67 +36,91 @@ body {
     filter: blur(3px);
 }
 
-#login {
-    background-color: teal;
-    margin: auto;
-    display: block;
+/*##########Login##########*/
+
+.login-container {
+    width: 100%;  
+    min-height: 100vh;
     position: absolute;
-    width: 50%;
-    max-width: 350px;
-    height: 470px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(105,9,121,1) 100%, rgba(0,212,255,1) 100%);
 }
 
-#login div {
+.login {
+    width: 400px;
+    font-family: Poppins-Bold;
+    display: block;
+    font-size: 40px;
+    color: rgb(40, 40, 40);
+    background-color: white;
+    padding: 50px;
     text-align: center;
-    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 25px 40px 28px 0px rgba(0, 0, 0, 0.38);
 }
 
 .text {
-    display: block;
-    color: white;
-}
-
-input {
-    font-size: 18px;
-    border: none;
-    padding: 10px 10px;
-    border-radius: 3px;
-}
-
-.title {
-    padding: 10px;
-    color: white;
-    font-size: 3em;
-}
-
-.btn, .text {
-    margin: 10px;
-}
-
-.btn {
-    cursor: pointer;
-}
-
-span {
-    position: absolute;
-    transform: translate(-150%, 50%);
-    cursor: pointer;
-}
-
-span #userIcon {
-    cursor: default;
-}
-
-.fas {
+    display: flex;
+    justify-content: left;
     font-size: 20px;
+    margin: 5px 0px;
 }
 
-#backgroundImg {
+.user-input, .pass-input {
     width: 100%;
-    height: 100%;
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: nowrap;
 }
+
+#user, #pass {
+    font-family: Poppins-Regular;
+    display: block;
+    font-size: 15px;
+    color: rgb(40, 40, 40);
+    width: 100%;
+    height: 50px;
+    background: transparent;
+    padding-left: 5px;
+}
+
+.eye-pass-icon, .user-icon {
+    justify-content: center;
+    min-width: 50px;
+    height: 50px;
+}
+
+.eye-pass-icon:hover {
+    cursor: pointer;
+}
+
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    border-radius: 40px 5px;
+}
+
+.login-btn {
+    font-family: Poppins-Medium;
+    font-size: 20px;
+    color: white;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    border-radius: 40px 5px;
+    width: 100%;
+    height: 50px;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(105,9,121,1) 100%, rgba(0,212,255,1) 100%);
+  }
