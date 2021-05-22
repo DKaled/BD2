@@ -1,27 +1,27 @@
 @font-face {
     font-family: Poppins-Regular;
-    src: url('fuentes/poppins/Poppins-Regular.ttf'); 
+    src: url('../fuentes/poppins/Poppins-Regular.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-Medium;
-    src: url('fuentes/poppins/Poppins-Medium.ttf'); 
+    src: url('../fuentes/poppins/Poppins-Medium.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-Bold;
-    src: url('fuentes/poppins/Poppins-Bold.ttf'); 
+    src: url('../fuentes/poppins/Poppins-Bold.ttf'); 
   }
   
   @font-face {
     font-family: Poppins-SemiBold;
-    src: url('fuentes/poppins/Poppins-SemiBold.ttf'); 
+    src: url('../fuentes/poppins/Poppins-SemiBold.ttf'); 
   }
 
 *{
 	margin: 0px; 
 	padding: 0px; 
-	/*box-sizing: border-box;*/
+	box-sizing: border-box;
 }
 
 body, html {
@@ -30,7 +30,7 @@ body, html {
 }
 
 #background {
-    background: url(img/FondoLogin.jpeg);
+    background: url(../img/FondoLogin.jpeg);
     background-size: cover;
     background-repeat: no-repeat;
     filter: blur(3px);
@@ -51,10 +51,21 @@ body, html {
     transform: translate(-50%, -50%);
 }
 
+.login-logo {
+    width: 450px;
+    height: 350px;
+    margin: 10px;
+    background-size: 100% 100%;
+    background-image: url(../img/Logo.png);
+    background-repeat: no-repeat;
+
+}
+
 .login {
-    width: 400px;
+    width: auto;
     font-family: Poppins-Bold;
-    display: block;
+    display: flex;
+    flex-direction: row;
     font-size: 40px;
     color: rgb(40, 40, 40);
     background-color: white;
@@ -121,6 +132,9 @@ body, html {
     border-radius: 40px 5px;
     width: 100%;
     height: 50px;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(105,9,121,1) 100%, rgba(0,212,255,1) 100%);
+    background: rgb(105,9,121);
+    background: -moz-linear-gradient(90deg, rgba(105,9,121,1) 0%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(105,9,121,1) 0%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(90deg, rgba(105,9,121,1) 0%, rgba(2,0,36,1) 100%, rgba(0,212,255,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#690979",endColorstr="#00d4ff",GradientType=1);
   }

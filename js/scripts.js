@@ -5,12 +5,6 @@ window.onload = function hola() { //cambiar nombre
     document.getElementById("background").style.width = innerWidth + "px";
 }
 
-function button() {
-    //userName = document.getElementById("user").value;
-    //pass = document.getElementById("pass").value;
-    alert("Usuario: " + userName + "\n" + "Contraseña: " + pass);
-}
-
 function togglePass() {
     var typePass = document.getElementById("pass").getAttribute("type");
     if (typePass == "password") {
@@ -27,11 +21,29 @@ $(document).ready(function() {
         error.preventDefault();
         userName = $.trim($("#user").val());
         pass = $.trim($("#pass").val());
-        alert("Usuario: " + userName + "\n" + "Contraseña: " + pass);
 
         if (userName.length == "" || pass.length == "") {
             alert("Datos vacios");
+            return false;
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/php/login.php",
+                data: {
+                    userName: userName, 
+                    pass: pass},
+                dataType: "json",
+                success: function (data) {
+                    if (data == 'null') {
+                        console.log("mal");
+                    } else {
+                        console.log("bien");
+                        window.location.href = "directivo.html";
+                    }
+                }
+            });
         }
+
     })
 })
 
