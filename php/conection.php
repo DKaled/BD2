@@ -1,5 +1,5 @@
 <?php 
-    class conexion {
+    class Conexion {
         private $dbHost = "localhost";
         private $dbName = "_pruebabd2";
         private $dbUser = "root";
@@ -10,7 +10,6 @@
 			try {
 				$this->connect = new PDO($connectionString, $this->dbUser, $this->dbPass);
 				$this->connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				echo "Conexión exitosa";
 			} catch (PDOException $error) {
 				$this->connect = "Error de conexión";
 				echo "ERROR: " . $error->getMessage();
@@ -21,7 +20,4 @@
 			return $this->connect;
 		}
 	}
-
-    $con = new conexion();
-    $con = $con->connect();
  ?>
