@@ -45,6 +45,8 @@
 
 		//Product
 
+		///////Funciones ejemplo que no forman parte de este proyecto
+
 		//Insertar un registro
 		public function insert(string $query, array $arrValues) {
 			$this->strQuery = $query;
