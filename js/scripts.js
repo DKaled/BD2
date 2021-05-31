@@ -1,8 +1,8 @@
-var userName, pass;
-
-window.onload = function hola() { //cambiar nombre
-    document.getElementById("background").style.height = innerHeight + "px";
-    document.getElementById("background").style.width = innerWidth + "px";
+window.onload = function inicio() {
+    if (document.getElementById("background")) {
+        document.getElementById("background").style.height = innerHeight + "px";
+        document.getElementById("background").style.width = innerWidth + "px";
+    }
 }
 
 function togglePass() {
@@ -16,34 +16,43 @@ function togglePass() {
     }
 }
 
-$(document).ready(function() {
-    $("#loginForm").submit(function(error) {
-        error.preventDefault();
-        userName = $.trim($("#user").val());
-        pass = $.trim($("#pass").val());
-
-        if (userName.length == "" || pass.length == "") {
-            alert("Datos vacios");
-            return false;
+$( document ).ready(function() {
+    $('#loginForm').on('submit', function(event) {
+        event.preventDefault();
+        var user = $.trim($("#user").val());
+        var pass = $.trim($("#pass").val());
+    
+        if (user == "" || pass == "") {
+            alert("Datos vacíos");
         } else {
             $.ajax({
                 type: "POST",
-                url: "/php/login.php",
+                url: "php/login.php",
                 data: {
-                    userName: userName, 
-                    pass: pass},
+                    'user': user,
+                    'pass': pass
+                },
                 dataType: "json",
-                success: function (data) {
-                    if (data == 'null') {
-                        console.log("mal");
-                    } else {
-                        console.log("bien");
-                        window.location.href = "directivo.html";
+            })
+            .done(function(response) {
+                console.log(response);
+                if (!response.error) {
+                    if (response.tipo == 'admin') {
+                        location.href = 'http://localhost/bd2/www/admin.php';
+                    } else if (response.tipo == 'usuario') {
+                        location.href = 'http://localhost/bd2/www/usuario.php';
                     }
+                } else {
+                    alert("Datos invalidos");
+                    console.log("Error de validación");
                 }
+            })
+            .fail(function(response) {
+                console.log(response.responseText);
+            })
+            .always(function() {
+                console.log("complete");
             });
         }
-
-    })
-})
-
+    });
+});
