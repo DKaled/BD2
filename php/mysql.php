@@ -1,13 +1,49 @@
 <?php 
 	class mysql extends conexion {
 		private $conexion;
-		private $strQuery;
-		private $arrValues;
 
 		function __construct() {
 			$this->conexion = new conexion();
 			$this->conexion = $this->conexion->connect();
 		}
+
+		//Product
+
+		public function insertProduct(array $arrValues) { //$arrValues = (val1, val2, ...;)
+			$this->arrValues = $arrValues;
+			$query = $this->conexion->prepare("INSERT INTO producto (codBarras, nombre, precio, cantidad, idDepartamento) VALUES (?, ?, ?, ?, ?)");
+			$result = $query->execute($arrValues);
+			if ($result) {
+				$lastInsert = $this->conexion->lastInsertId();
+			} else {
+				$lastInsert = 0;
+			}
+			return $lastInsert;
+		}
+
+		public function selectAllProduct() {
+			$query = $this->conexion->prepare("SELECT * FROM producto");
+			$query->execute();
+			$data = $query->fetchAll(PDO::FETCH_ASSOC);
+			return $data;
+		}
+
+		public function selectIdNameProduct(array $arrValues) {
+			$query = $this->conexion->prepare("SELECT * FROM producto WHERE codBarras = ? OR nombre = ?");
+			$query->execute($arrValues);
+			$data = $query->fetch(PDO::FETCH_ASSOC);
+			return $data;
+		}
+
+		public function updateProduct(array $arrValues) {
+			//FALTA select
+			//Falta dato para where
+			$query =  $this->conexion->prepare("UPDATE producto SET codBarras = ?, nombre = ?, precio = ?, cantidad = ?, idDepartamento = ? WHERE codBarras = ?");
+			$result = $query->execute($this->arrValues);
+			return $result; //Pensar en cambiar $resExecute por $resUpdate
+		}
+
+		//Product
 
 		//Insertar un registro
 		public function insert(string $query, array $arrValues) {
