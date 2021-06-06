@@ -196,5 +196,47 @@
 
 		//Employee
 
+		//Cargos
+
+		public function selectAllCargos() {
+			$this->query = $this->conection->prepare("SELECT * FROM cargo");
+			$this->query->execute();
+			$data = $this->query->fetchAll(PDO::FETCH_OBJ);
+			return $data;
+		}
+
+		public function insertCargos(array $arrValues) { 
+			$this->query = $this->conection->prepare("INSERT INTO cargo (idCargo, nombre) VALUES (?, ?)");
+			$result = $this->query->execute($arrValues);
+			if ($result) {
+				$lastInsert = $this->conection->lastInsertId();
+			} else {
+				$lastInsert = 0;
+			}
+			return $lastInsert;
+		}
+
+		public function selectIdNameCargos(array $arrValues) {
+			$this->query = $this->conection->prepare("SELECT * FROM cargo WHERE idCargo = ?");
+			$this->query->execute($arrValues);
+			$data = $this->query->fetch(PDO::FETCH_ASSOC);
+			return $data;
+		}
+
+		public function updateCargos(array $arrValues) {
+			$this->query =  $this->conection->prepare("UPDATE cargo SET idCargo = ?, nombre = ? WHERE idCargo = ?");
+			$result = $this->query->execute($arrValues);
+			return $result;
+		}
+
+		public function deleteCargos(array $arrValues) {
+			$this->query = $this->conection->prepare("DELETE FROM cargo WHERE idCargo = ?");
+			$result = $this->query->execute($arrValues);
+			print_r($arrValues);
+			return $result;
+		}
+
+		//Cargos
+
 	}
  ?>
