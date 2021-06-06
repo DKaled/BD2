@@ -10,7 +10,7 @@
 
     if ($selection == "preUpdate") {
         $query = new MySQL();
-        $resQuery = $query->selectIdNameProduct(array($code, ""));
+        $resQuery = $query->selectIdNameProduct(array($code));
         
         if ($resQuery) {
             echo json_encode(array('codBarras' => $resQuery['codBarras'], 'nombre' => $resQuery['nombre'], 'precio' => $resQuery['precio'], 'cantidad' => $resQuery['cantidad'], 'idDepartamento' => $resQuery['idDepartamento']));
