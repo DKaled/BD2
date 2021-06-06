@@ -12,7 +12,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador | Productos</title>
+    <title>Productos</title>
     <script src="../js/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../bootstrap-5.0.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
@@ -60,7 +60,7 @@
                                 <td><?php echo $row->cantidad ?></td>
                                 <td><?php echo $row->idDepartamento ?></td>
                                 <td class="row-btn"><button class="btn btn-primary update-product" code="<?php echo $row->codBarras ?>">Actualizar</button></td>
-                                <td class="row-btn"><button class="btn btn-danger delete" code="<?php echo $row->codBarras ?>">Borrar</button></td>
+                                <td class="row-btn"><button class="btn btn-danger delete-product" code="<?php echo $row->codBarras ?>">Borrar</button></td>
                                 <!--Comprobacion de contraseña para saber si se borra o no-->
                             </tr>
                     <?php } ?>
