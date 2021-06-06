@@ -52,6 +52,8 @@ $( document ).ready(function() {
         }
     });
 
+    //#region Product
+
     $('.add-product').click(function (event) { 
         event.preventDefault();
         $('#insert-modal').fadeIn();
@@ -96,7 +98,7 @@ $( document ).ready(function() {
         });
     });
 
-    $('.delete').on('click', function(event) {
+    $('.delete-product').on('click', function(event) {
         
         if (window.history.replaceState) {
             window.history.replaceState(null, null, window.location.href);
@@ -110,10 +112,6 @@ $( document ).ready(function() {
             type: "POST",
             url: "../php/products.php",
             data: {
-                'name': "",
-                'price': 0, //probar quitandolos
-                'amount' : 0,
-                'department' : 0,
                 'code' : code,
                 'selection' : selection
             },
@@ -208,8 +206,490 @@ $( document ).ready(function() {
         })
         .always(function() {
             console.log("complete");
+            location.reload();
         });
     });
+
+    //#endregion Product
+
+    //#region Department
+
+    $('.add-department').click(function (event) { 
+        event.preventDefault();
+        $('#insert-modal').fadeIn();
+    });
+
+    $('#form-add-department').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#department-name").val());
+        var code = $.trim($("#department-code").val());
+        var selection = "insert";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/departments.php",
+            data: {
+                'name' : name,
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.delete-department').on('click', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var code = $(this).attr("code");
+        var selection = "delete";
+        
+        var request = $.ajax({
+            type: "POST",
+            url: "../php/departments.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json",
+            beforeSend: function (data) { 
+                var confirmacion = confirm("¿Seguro que quieres borrar los datos de " + code + "?");
+                if (confirmacion) 
+                    alert("El elemento " + code + " ha sido eliminado.");
+                else
+                    request.abort();
+            }
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.update-department').click(function (event) { 
+        event.preventDefault();
+        var code = $(this).attr("code");
+        var selection = "preUpdate";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/departments.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            document.getElementById("department-name-update").setAttribute("value", response["nombre"]);
+            document.getElementById("department-code-update").setAttribute("value", response["idDepartamento"]);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+           
+        });
+        
+        $('#update-modal').fadeIn();
+    });
+
+
+    $('#form-update-department').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#department-name-update").val());
+        var code = $.trim($("#department-code-update").val());
+        var originalCode = $("#department-code-update").attr("value");
+        var selection = "update";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/departments.php",
+            data: {
+                'name': name,
+                'code' : code,
+                'originalCode' : originalCode,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    //#endregion Department
+
+    //#region User
+
+    $('.add-user').click(function (event) { 
+        event.preventDefault();
+        $('#insert-modal').fadeIn();
+    });
+
+    $('#form-add-user').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#user-name").val());
+        var contrasenna = $.trim($("#user-contrasenna").val());
+        var cryptContrasenna = CryptoJS.MD5(contrasenna).toString();
+        var type = $.trim($("#user-type").val());
+        var code = $.trim($("#user-code").val());
+        var selection = "insert";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/users.php",
+            data: {
+                'name' : name,
+                'cryptContrasenna' : cryptContrasenna,
+                'type' : type,
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.delete-user').on('click', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var code = $(this).attr("code");
+        var selection = "delete";
+        
+        var request = $.ajax({
+            type: "POST",
+            url: "../php/users.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json",
+            beforeSend: function (data) { 
+                var confirmacion = confirm("¿Seguro que quieres borrar los datos de " + code + "?");
+                if (confirmacion) 
+                    alert("El elemento " + code + " ha sido eliminado.");
+                else
+                    request.abort();
+            }
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.update-user').click(function (event) { 
+        event.preventDefault();
+        var code = $(this).attr("code");
+        var selection = "preUpdate";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/users.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            document.getElementById("user-name-update").setAttribute("value", response["username"]);
+            document.getElementById("user-type-update").setAttribute("value", response["idTipoUsuario"]);
+            document.getElementById("user-code-update").setAttribute("value", response["idUsuario"]);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+           
+        });
+        
+        $('#update-modal').fadeIn();
+    });
+
+
+    $('#form-update-user').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#user-name-update").val());
+        var type = $.trim($("#user-type-update").val());
+        var code = $.trim($("#user-code-update").val());
+        var originalCode = $("#user-code-update").attr("value");
+        var selection = "update";        
+
+        $.ajax({
+            type: "POST",
+            url: "../php/users.php",
+            data: {
+                'name' : name,
+                'type' : type,
+                'code' : code,
+                'originalCode' : originalCode,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    //#endregion User
+
+    //#region Employee
+
+    $('.add-employee').click(function (event) { 
+        event.preventDefault();
+        $('#insert-modal').fadeIn();
+    });
+
+    $('#form-add-employee').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var num = $.trim($("#employee-num").val());
+        var name = $.trim($("#employee-name").val());
+        var apep = $.trim($("#employee-apep").val());
+        var apem = $.trim($("#employee-apem").val());
+        var sexo = $.trim($("#employee-sexo").val());
+        var date = $.trim($("#employee-date").val());
+        var cargo = $.trim($("#employee-cargo").val());
+        var code = $.trim($("#employee-code").val());
+        var selection = "insert";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/employees.php",
+            data: {
+                'num' : num,
+                'name' : name,
+                'apep' : apep,
+                'apem' : apem,
+                'sexo' : sexo,
+                'date' : date,
+                'cargo' : cargo,
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.delete-employee').on('click', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var num = $(this).attr("code");
+        var selection = "delete";
+        
+        var request = $.ajax({
+            type: "POST",
+            url: "../php/employees.php",
+            data: {
+                'num' : num,
+                'selection' : selection
+            },
+            dataType: "json",
+            beforeSend: function (data) { 
+                var confirmacion = confirm("¿Seguro que quieres borrar los datos de " + num + "?");
+                if (confirmacion) 
+                    alert("El elemento " + num + " ha sido eliminado.");
+                else
+                    request.abort();
+            }
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.update-employee').click(function (event) { 
+        event.preventDefault();
+        var num = $(this).attr("code");
+        var selection = "preUpdate";
+        
+        $.ajax({
+            type: "POST",
+            url: "../php/employees.php",
+            data: {
+                'num' : num,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            document.getElementById("employee-num-update").setAttribute("value", response["numNomina"]);
+            document.getElementById("employee-name-update").setAttribute("value", response["nombre"]);
+            document.getElementById("employee-apep-update").setAttribute("value", response["apeP"]);
+            document.getElementById("employee-apem-update").setAttribute("value", response["apeM"]);
+            document.getElementById("employee-sexo-update").setAttribute("value", response["sexo"]);
+            document.getElementById("employee-date-update").setAttribute("value", response["fechaContratacion"]);
+            document.getElementById("employee-cargo-update").setAttribute("value", response["idCargo"]);
+            document.getElementById("employee-code-update").setAttribute("value", response["idUsuario"]);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+           
+        });
+        
+        $('#update-modal').fadeIn();
+    });
+
+
+    $('#form-update-employee').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var num = $.trim($("#employee-num-update").val());
+        var name = $.trim($("#employee-name-update").val());
+        var apep = $.trim($("#employee-apep-update").val());
+        var apem = $.trim($("#employee-apem-update").val());
+        var sexo = $.trim($("#employee-sexo-update").val());
+        var date = $.trim($("#employee-date-update").val());
+        var cargo = $.trim($("#employee-cargo-update").val());
+        var code = $.trim($("#employee-code-update").val());
+        var originalCode = $("#employee-num-update").attr("value");
+        var selection = "update";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/employees.php",
+            data: {
+                'num' : num,
+                'name' : name,
+                'apep' : apep,
+                'apem' : apem,
+                'sexo' : sexo,
+                'date' : date,
+                'cargo' : cargo,
+                'code' : code,
+                'originalCode' : originalCode,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    //#endregion Employee
 });
 
 function logout() {
