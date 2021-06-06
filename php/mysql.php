@@ -1,20 +1,36 @@
 <?php 
-	class mysql extends conexion {
-		private $conexion;
+	require ('conection.php');
+	class MySQL extends Conection {
+		private $conection;
+		private $query;
 
 		function __construct() {
-			$this->conexion = new conexion();
-			$this->conexion = $this->conexion->connect();
+			$this->conection = new Conection();
+			$this->conection = $this->conection->connect();
 		}
+
+		public function closeConection() {
+			$this->conection = null;
+		}
+
+		//Login
+
+		public function login(array $arrValues) {
+			$this->query = $this->conection->prepare("SELECT usuario.username, tipousuario.tipo FROM usuario INNER JOIN tipousuario ON usuario.idTipoUsuario = tipousuario.idTipoUsuario WHERE username = ? AND contrasenna = ?");
+			$this->query->execute($arrValues);
+			return $this->query;
+		}
+
+		//Login
 
 		//Product
 
 		public function insertProduct(array $arrValues) { //$arrValues = (val1, val2, ...;)
-			$this->arrValues = $arrValues;
-			$query = $this->conexion->prepare("INSERT INTO producto (codBarras, nombre, precio, cantidad, idDepartamento) VALUES (?, ?, ?, ?, ?)");
-			$result = $query->execute($arrValues);
+			//$this->arrValues = $arrValues;
+			$this->query = $this->conection->prepare("INSERT INTO producto (codBarras, nombre, precio, cantidad, idDepartamento) VALUES (?, ?, ?, ?, ?)");
+			$result = $this->query->execute($arrValues);
 			if ($result) {
-				$lastInsert = $this->conexion->lastInsertId();
+				$lastInsert = $this->conection->lastInsertId();
 			} else {
 				$lastInsert = 0;
 			}
@@ -22,78 +38,39 @@
 		}
 
 		public function selectAllProduct() {
-			$query = $this->conexion->prepare("SELECT * FROM producto");
-			$query->execute();
-			$data = $query->fetchAll(PDO::FETCH_ASSOC);
+			$this->query = $this->conection->prepare("SELECT * FROM producto");
+			$this->query->execute();
+			$data = $this->query->fetchAll(PDO::FETCH_OBJ);
 			return $data;
 		}
 
 		public function selectIdNameProduct(array $arrValues) {
-			$query = $this->conexion->prepare("SELECT * FROM producto WHERE codBarras = ? OR nombre = ?");
-			$query->execute($arrValues);
-			$data = $query->fetch(PDO::FETCH_ASSOC);
+			$this->query = $this->conection->prepare("SELECT * FROM producto WHERE codBarras = ? OR nombre = ?");
+			$this->query->execute($arrValues);
+			$data = $this->query->fetch(PDO::FETCH_ASSOC);
 			return $data;
 		}
 
 		public function updateProduct(array $arrValues) {
-			//FALTA select
-			//Falta dato para where
-			$query =  $this->conexion->prepare("UPDATE producto SET codBarras = ?, nombre = ?, precio = ?, cantidad = ?, idDepartamento = ? WHERE codBarras = ?");
-			$result = $query->execute($this->arrValues);
-			return $result; //Pensar en cambiar $resExecute por $resUpdate
+			$this->query =  $this->conection->prepare("UPDATE producto SET nombre = ?, precio = ?, cantidad = ?, idDepartamento = ? WHERE codBarras = ?");
+			$result = $this->query->execute($arrValues);
+			return $result;
+		}
+
+		public function deleteProduct(array $arrValues) {
+			$this->query = $this->conection->prepare("DELETE FROM producto WHERE codBarras = ?");
+			$result = $this->query->execute($arrValues);
+			print_r($arrValues);
+			return $result;
 		}
 
 		//Product
 
-		///////Funciones ejemplo que no forman parte de este proyecto
+		//Department
 
-		//Insertar un registro
-		public function insert(string $query, array $arrValues) {
-			$this->strQuery = $query;
-			$this->arrValues = $arrValues;
-			$insert = $this->conexion->prepare($this->strQuery);
-			$resInsert = $insert->execute($this->arrValues);
-			if ($resInsert) {
-				$lastInsert = $this->conexion->lastInsertId();
-			} else {
-				$lastInsert = 0;
-			}
-			return $lastInsert;
-		}
 
-		//Busca un registro
-		public function select(string $query) {
-			$this->strQuery = $query;
-			$result = $this->conexion->prepare($this->strQuery);
-			$result->execute();
-			$data = $result->fetch(PDO::FETCH_ASSOC);
-			return $data;
-		}
 
-		//Devuelve todos los registros
-		public function select_all(string $query) {
-			$this->strQuery = $query;
-			$result = $this->conexion->prepare($this->strQuery);
-			$result->execute();
-			$data = $result->fetchall(PDO::FETCH_ASSOC);
-			return $data;
-		}
-
-		//Actualiza registros
-		public function update(string $query, array $arrValues) {
-			$this->strQuery = $query;
-			$this->arrValues = $arrValues;
-			$update = $this->conexion->prepare($this->strQuery);
-			$resExecute = $update->execute($this->arrValues);
-			return $resExecute; //Pensar en cambiar $resExecute por $resUpdate
-		}
-
-		//Eliminar un registro
-		public function delete(string $query) {
-			$this->strQuery = $query;
-			$result = $this->conexion->prepare($this->strQuery);
-			$del = $result->execute();
-			return $del;
-		}
+		//Department
+		
 	}
  ?>
