@@ -8,7 +8,7 @@
 
     if ($selection == "preUpdate") {
         $query = new MySQL();
-        $resQuery = $query->selectIdNameDepartment(array($code, ""));
+        $resQuery = $query->selectIdNameDepartment(array($code));
         
         if ($resQuery) {
             echo json_encode(array('idDepartamento' => $resQuery['idDepartamento'], 'nombre' => $resQuery['nombre']));
