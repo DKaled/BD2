@@ -211,7 +211,17 @@ body, html {
 }
 
 .sidebar-user {
+    width: 90%;
+    height: 35px;
+    display: flex;
     justify-content: center;
+    align-items: center;
+    color: white;
+    border-radius: 10px;
+    padding: 25px 0px;
+    cursor: default;
+    justify-content: center;
+
 }
 
 #actual {

@@ -690,6 +690,153 @@ $( document ).ready(function() {
     });
 
     //#endregion Employee
+
+    //#region Cargo
+
+    $('.add-cargos').click(function (event) { 
+        event.preventDefault();
+        $('#insert-modal').fadeIn();
+    });
+
+    $('#form-add-cargos').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#cargos-name").val());
+        var code = $.trim($("#cargos-code").val());
+        var selection = "insert";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/cargos.php",
+            data: {
+                'name' : name,
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.delete-cargos').on('click', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var code = $(this).attr("code");
+        var selection = "delete";
+        
+        var request = $.ajax({
+            type: "POST",
+            url: "../php/cargos.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json",
+            beforeSend: function (data) { 
+                var confirmacion = confirm("¿Seguro que quieres borrar los datos de " + code + "?");
+                if (confirmacion) 
+                    alert("El elemento " + code + " ha sido eliminado.");
+                else
+                    request.abort();
+            }
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    $('.update-cargos').click(function (event) { 
+        event.preventDefault();
+        var code = $(this).attr("code");
+        var selection = "preUpdate";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/cargos.php",
+            data: {
+                'code' : code,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            document.getElementById("cargos-name-update").setAttribute("value", response["nombre"]);
+            document.getElementById("cargos-code-update").setAttribute("value", response["idCargo"]);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+           
+        });
+        
+        $('#update-modal').fadeIn();
+    });
+
+
+    $('#form-update-cargos').on('submit', function(event) {
+        
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+
+        }
+
+        var name = $.trim($("#cargos-name-update").val());
+        var code = $.trim($("#cargos-code-update").val());
+        var originalCode = $("#cargos-code-update").attr("value");
+        var selection = "update";
+
+        $.ajax({
+            type: "POST",
+            url: "../php/cargos.php",
+            data: {
+                'name': name,
+                'code' : code,
+                'originalCode' : originalCode,
+                'selection' : selection
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            console.log(response);
+            
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+        })
+        .always(function() {
+            console.log("complete");
+            location.reload();
+        });
+    });
+
+    //#endregion Cargo
 });
 
 function logout() {
@@ -721,13 +868,73 @@ function setDisable($typeuser, $section) {
     //2 user
     //3 basic
     switch ($section) {
-        case 'Productos':
+        case 'Departamentos':
             if ($typeuser == 3) {
-                $('.delete').prop('disabled', true);
-                $('.update').prop('disabled', true);
+                $('.delete-department').prop('disabled', true);
+                $('.update-department').prop('disabled', true);
                 $('.insert').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            } else if ($typeuser == 2) {
+                $('.delete-department').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            }
+            break;
+        case 'Productos':
+            if ($typeuser == 3) {
+                $('.delete-product').prop('disabled', true);
+                $('.update-product').prop('disabled', true);
+                $('.insert').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.empleados').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            } else if ($typeuser == 2) {
+                $('.delete-product').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            }
+            break;
+        case 'Usuarios':
+            if ($typeuser == 3) {
+                $('.delete-user').prop('disabled', true);
+                $('.update-user').prop('disabled', true);
+                $('.insert').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.empleados').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            } else if ($typeuser == 2) {
+                $('.delete-user').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            }
+            break;
+        case 'Empleados':
+            if ($typeuser == 3) {
+                $('.delete-employee').prop('disabled', true);
+                $('.update-employee').prop('disabled', true);
+                $('.insert').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.empleados').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            } else if ($typeuser == 2) {
+                $('.delete-employee').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            }
+            break;
+        case 'Cargos':
+            if ($typeuser == 3) {
+                $('.delete-cargos').prop('disabled', true);
+                $('.update-cargos').prop('disabled', true);
+                $('.insert').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
+                $('.empleados').addClass("setdisable");
+                $('.cargos').addClass("setdisable");
+            } else if ($typeuser == 2) {
+                $('.delete-cargos').prop('disabled', true);
+                $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
             }
             break;
