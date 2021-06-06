@@ -26,7 +26,7 @@
         <div class="sidebar-container">
             <div class="sidebar">
                 <div class="image"></div>
-                <h5 class="sidebar-item sidebar-user"><span class="material-icons">account_circle</span><?php echo $_SESSION['usuario']['username'] ?></h5>
+                <h5 class="sidebar-user"><span class="material-icons">account_circle</span><?php echo $_SESSION['usuario']['username'] ?></h5>
                 <h5 class="sidebar-item selection departamentos" onclick="changePageAdmin('Departamentos')"><span class="material-icons">store</span>Departamentos</h5>
                 <h5 class="sidebar-item selection productos" onclick="changePageAdmin('Productos')"><span class="material-icons">shopping_cart</span>Productos</h5>
                 <h5 id="actual" class="sidebar-item selection usuarios" onclick="changePageAdmin('Usuarios')"><span class="material-icons">people</span>Usuarios</h5>
@@ -127,5 +127,8 @@
 <?php 
     $typeuser = $_SESSION['usuario']['tipo'];
     if ($typeuser == "basic") 
-        echo "<script>setDisable(3, 'Productos');</script>";
+        echo "<script>setDisable(3, 'Usuarios');</script>";
+    else if ($typeuser == "user") {
+        echo "<script>setDisable(2, 'Usuarios');</script>";
+    }
 ?>
