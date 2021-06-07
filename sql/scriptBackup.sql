@@ -1,0 +1,1 @@
+mysql --user=root --password="" --host=localhost minisuper < C:/xampp/htdocs/BD2/sql/minisuper.sql

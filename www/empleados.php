@@ -36,6 +36,9 @@
                 <form id="form-backup" action="" method="POST">
                     <input class="backup"  type="submit" value="Backup">
                 </form>
+                <form id="form-script" action="" method="POST">
+                    <input class="script-code"  type="submit" value="Script">
+                </form>
             </div>    
         </div>
 
@@ -71,14 +74,14 @@
                                 <td><?php echo $row->idUser ?></td>
                                 <td class="row-btn"><button class="btn btn-primary update-employee" code="<?php echo $row->numNomina ?>">Actualizar</button></td>
                                 <td class="row-btn"><button class="btn btn-danger delete-employee" code="<?php echo $row->numNomina ?>">Borrar</button></td>
-                                <!--Comprobacion de contraseña para saber si se borra o no-->
                             </tr>
                     <?php } ?>
 
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success insert add-employee">Agregar</button>               
+            <button class="btn btn-success insert add-employee">Agregar</button>    
+            <button class="btn btn-outline-info report-employee">Generar reporte</button>            
         </div>
     </div>
 

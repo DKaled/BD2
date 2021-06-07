@@ -23,6 +23,6 @@
         $pdf->Cell(40, 10, $row->idDepartamento, 1, 1, 'C', 0);
     }
 
-    $pdf->Output('D',"productsReport.pdf", true);
+    $pdf->Output('I',"productsReport.pdf", false);
 
 ?>

@@ -34,6 +34,9 @@
                 <form id="form-backup" action="" method="POST">
                     <input class="backup"  type="submit" value="Backup">
                 </form>
+                <form id="form-script" action="" method="POST">
+                    <input class="script-code"  type="submit" value="Script">
+                </form>
             </div>    
         </div>
 

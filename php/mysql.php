@@ -238,11 +238,17 @@
 		public function deleteCargos(array $arrValues) {
 			$this->query = $this->conection->prepare("DELETE FROM cargo WHERE idCargo = ?");
 			$result = $this->query->execute($arrValues);
-			print_r($arrValues);
+
 			return $result;
 		}
 
 		//Cargos
+
+		public function scriptBackup(){ 
+			$sql= file_get_contents('../sql/scriptBackup.sql');
+			exec($sql);
+
+		}
 
 	}
  ?>

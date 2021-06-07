@@ -1,7 +1,7 @@
 <?php 
     class Conection {
         private $dbHost = "localhost";
-        private $dbName = "_pruebabd2";
+        private $dbName = "minisuper";
         private $dbUser = "root";
         private $dbPass = "";
 
