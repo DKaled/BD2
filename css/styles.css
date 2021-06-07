@@ -255,7 +255,7 @@ body, html {
     border-radius: 50px 25px;
 }
 
-.backup {
+.backup, .script-code {
     width: 150px;
     height: auto;
     background: rgb(105,9,121);
@@ -266,6 +266,7 @@ body, html {
     color: white;
     font-size: 20px;
     border-radius: 50px;
+    margin: 15px 0px;
 }
 
 .setdisable {
@@ -304,6 +305,6 @@ body, html {
     margin: 10px 0px;
 }
 
-.report {
+.report-product, .report-employee {
     margin: 15px 0px;
 }

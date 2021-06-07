@@ -847,13 +847,57 @@ $( document ).ready(function() {
 
     $('#form-backup').submit(function (event) { 
         event.preventDefault();
-        $.post("../php/backup.php",
-            function (textStatus, jqXHR) {
-                alert("Backup realizado exitosamente.");
-            }
-        );
+
+        $.ajax({
+            type: "POST",
+            url: "../php/backup.php"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+            alert("Backup no realizado.")
+        })
+        .always(function() {
+            console.log("complete");
+            alert("Backup completado.");
+            location.reload();
+        });
     });
 
+    $('.report-product').click(function (e) { 
+        e.preventDefault();
+        console.log("show Preport");
+        window.open("../php/productsReport.php", "_blank");
+    });
+
+    $('.report-employee').click(function (e) { 
+        e.preventDefault();
+        console.log("show Ereport");
+        window.open("../php/employeesReport.php", "_blank");
+    });
+
+    $('#form-script').submit(function (event) { 
+        event.preventDefault();
+
+        $.ajax({
+            type: "POST",
+            url: "../php/restore.php"
+        })
+        .done(function(response) {
+            console.log(response);
+        })
+        .fail(function(response) {
+            console.log(response.responseText);
+            alert("Restauración no realizado.")
+        })
+        .always(function() {
+            console.log("complete");
+            alert("Restauración completada.");
+            location.reload();
+        });
+    });
 });
 
 function logout() {
@@ -894,11 +938,13 @@ function setDisable($typeuser, $section) {
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-department').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             }
             break;
         case 'Productos':
@@ -910,11 +956,13 @@ function setDisable($typeuser, $section) {
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-product').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             }
             break;
         case 'Usuarios':
@@ -926,11 +974,13 @@ function setDisable($typeuser, $section) {
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-user').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             }
             break;
         case 'Empleados':
@@ -942,11 +992,13 @@ function setDisable($typeuser, $section) {
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-employee').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             }
             break;
         case 'Cargos':
@@ -958,11 +1010,13 @@ function setDisable($typeuser, $section) {
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-cargos').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
                 $('#form-backup').addClass("setdisable");
+                $('#form-script').addClass("setdisable");
             }
             break;
     }
