@@ -6,10 +6,9 @@
     
             $user = $_POST['user'];
             $pass = $_POST['pass'];
-            $cryptPass = md5($pass);
 
             $query = new MySQL();
-            $resQuery = $query->login(array($user, $cryptPass));
+            $resQuery = $query->login(array($user, $pass));
             $rows = $resQuery->rowCount();
 
             if ($rows && $resQuery) {
