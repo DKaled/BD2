@@ -20,7 +20,8 @@ $( document ).ready(function() {
     $('#loginForm').on('submit', function(event) {
         event.preventDefault();
         var user = $.trim($("#user").val());
-        var pass = $.trim($("#pass").val());
+        var prePass = $.trim($("#pass").val());
+        pass = CryptoJS.MD5(prePass).toString();
     
         if (user == "" || pass == "") {
             alert("Datos vacíos");
@@ -66,6 +67,7 @@ $( document ).ready(function() {
 
         }
 
+        var idUser = $.trim($(".side-bar-user").val());
         var name = $.trim($("#product-name").val());
         var price = $.trim($("#product-price").val());
         var amount = $.trim($("#product-amount").val());
@@ -77,6 +79,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "../php/products.php",
             data: {
+                'idUser' : idUser,
                 'name': name,
                 'price': price,
                 'amount' : amount,
@@ -91,6 +94,7 @@ $( document ).ready(function() {
         })
         .fail(function(response) {
             console.log(response.responseText);
+            alert("Los datos ya existen en la tabla");
         })
         .always(function() {
             console.log("complete");
@@ -105,6 +109,7 @@ $( document ).ready(function() {
 
         }
 
+        var idUser = $.trim($(".side-bar-user").val());
         var code = $(this).attr("code");
         var selection = "delete";
         
@@ -112,6 +117,7 @@ $( document ).ready(function() {
             type: "POST",
             url: "../php/products.php",
             data: {
+                'idUser' : idUser,
                 'code' : code,
                 'selection' : selection
             },
@@ -138,6 +144,7 @@ $( document ).ready(function() {
 
     $('.update-product').click(function (event) { 
         event.preventDefault();
+        
         var code = $(this).attr("code");
         var selection = "preUpdate";
 
@@ -837,6 +844,16 @@ $( document ).ready(function() {
     });
 
     //#endregion Cargo
+
+    $('#form-backup').submit(function (event) { 
+        event.preventDefault();
+        $.post("../php/backup.php",
+            function (textStatus, jqXHR) {
+                alert("Backup realizado exitosamente.");
+            }
+        );
+    });
+
 });
 
 function logout() {
@@ -876,10 +893,12 @@ function setDisable($typeuser, $section) {
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-department').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             }
             break;
         case 'Productos':
@@ -890,10 +909,12 @@ function setDisable($typeuser, $section) {
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-product').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             }
             break;
         case 'Usuarios':
@@ -904,10 +925,12 @@ function setDisable($typeuser, $section) {
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-user').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             }
             break;
         case 'Empleados':
@@ -918,10 +941,12 @@ function setDisable($typeuser, $section) {
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-employee').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             }
             break;
         case 'Cargos':
@@ -932,10 +957,12 @@ function setDisable($typeuser, $section) {
                 $('.usuarios').addClass("setdisable");
                 $('.empleados').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             } else if ($typeuser == 2) {
                 $('.delete-cargos').prop('disabled', true);
                 $('.usuarios').addClass("setdisable");
                 $('.cargos').addClass("setdisable");
+                $('#form-backup').addClass("setdisable");
             }
             break;
     }
