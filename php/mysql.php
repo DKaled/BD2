@@ -28,6 +28,7 @@
 		public function insertProduct(array $arrValues) {
 			$this->query = $this->conection->prepare("INSERT INTO producto (codBarras, nombre, precio, cantidad, idDepartamento) VALUES (?, ?, ?, ?, ?)");
 			$result = $this->query->execute($arrValues);
+;
 			if ($result) {
 				$lastInsert = $this->conection->lastInsertId();
 			} else {
@@ -37,7 +38,7 @@
 		}
 
 		public function selectAllProduct() {
-			$this->query = $this->conection->prepare("SELECT * FROM producto");
+			$this->query = $this->conection->prepare("SELECT * FROM v_producto");
 			$this->query->execute();
 			$data = $this->query->fetchAll(PDO::FETCH_OBJ);
 			return $data;
@@ -61,6 +62,11 @@
 			$result = $this->query->execute($arrValues);
 			print_r($arrValues);
 			return $result;
+		}
+		
+		public function callAdministra(array $arrValues) {
+			$this->query = $this->conection->prepare("CALL LTAdministra(?, ?)");
+			$this->query->execute($arrValues);
 		}
 
 		//Product
@@ -110,7 +116,7 @@
 		//User
 
 		public function selectAllUser() {
-			$this->query = $this->conection->prepare("SELECT * FROM usuario");
+			$this->query = $this->conection->prepare("SELECT * FROM v_usuario");
 			$this->query->execute();
 			$data = $this->query->fetchAll(PDO::FETCH_OBJ);
 			return $data;
@@ -154,7 +160,7 @@
 		//Employee
 
 		public function selectAllEmployee() {
-			$this->query = $this->conection->prepare("SELECT * FROM empleado");
+			$this->query = $this->conection->prepare("SELECT * FROM v_empleado");
 			$this->query->execute();
 			$data = $this->query->fetchAll(PDO::FETCH_OBJ);
 			return $data;

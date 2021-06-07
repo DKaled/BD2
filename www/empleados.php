@@ -33,6 +33,9 @@
                 <h5 id="actual" class="sidebar-item selection empleados" onclick="changePageAdmin('Empleados')"><span class="material-icons">badge</span>Empleados</h5>
                 <h5 class="sidebar-item selection cargos" onclick="changePageAdmin('Cargos')"><span class="material-icons">inventory</span>Cargos</h5>
                 <h5 class="sidebar-item selection" onclick="logout()"><span class="material-icons">logout</span>Cerrar sesión</h5>
+                <form id="form-backup" action="" method="POST">
+                    <input class="backup"  type="submit" value="Backup">
+                </form>
             </div>    
         </div>
 
@@ -65,7 +68,7 @@
                                 <td><?php echo $row->sexo ?></td>
                                 <td><?php echo $row->fechaContratacion ?></td>
                                 <td><?php echo $row->idCargo ?></td>
-                                <td><?php echo $row->idUsuario ?></td>
+                                <td><?php echo $row->idUser ?></td>
                                 <td class="row-btn"><button class="btn btn-primary update-employee" code="<?php echo $row->numNomina ?>">Actualizar</button></td>
                                 <td class="row-btn"><button class="btn btn-danger delete-employee" code="<?php echo $row->numNomina ?>">Borrar</button></td>
                                 <!--Comprobacion de contraseña para saber si se borra o no-->

@@ -31,6 +31,9 @@
                 <h5 class="sidebar-item selection empleados" onclick="changePageAdmin('Empleados')"><span class="material-icons">badge</span>Empleados</h5>
                 <h5 class="sidebar-item selection cargos" onclick="changePageAdmin('Cargos')"><span class="material-icons">inventory</span>Cargos</h5>
                 <h5 class="sidebar-item selection" onclick="logout()"><span class="material-icons">logout</span>Cerrar sesión</h5>
+                <form id="form-backup" action="" method="POST">
+                    <input class="backup"  type="submit" value="Backup">
+                </form>
             </div>    
         </div>
 
@@ -68,7 +71,8 @@
                     </tbody>
                 </table>
             </div>
-            <button class="btn btn-success insert add-product">Agregar</button>               
+            <button class="btn btn-success insert add-product">Agregar</button>     
+            <button class="btn btn-outline-info report">Generar reporte</button>          
         </div>
     </div>
 

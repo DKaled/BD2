@@ -25,7 +25,7 @@
     if ($selection == "insert") {
         $query = new MySQL();
         $resQuery = $query->insertEmployee(array($num, $name, $apep, $apem, $sexo, $date, $cargo, $code));
-        
+
         if ($resQuery) {
             echo json_encode(array('error' => false));
         } else {

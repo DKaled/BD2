@@ -1,6 +1,7 @@
 <?php
     include_once ('mysql.php');
 
+    $idUser = isset($_POST['idUser']) ? $_POST['idUser'] : "";
     $name = isset($_POST['name']) ? $_POST['name'] : "";
     $price = isset($_POST['price']) ? (int)$_POST['price'] : 0;
     $amount = isset($_POST['amount']) ? (int)$_POST['amount'] : 0;
@@ -22,16 +23,16 @@
     if ($selection == "insert") {
         $query = new MySQL();
         $resQuery = $query->insertProduct(array($code, $name, $price, $amount, $departament));
-
+        $callQuery = $query->callAdministra(array($idUser, $code));
         if ($resQuery) {
             echo json_encode(array('error' => false));
         } else {
-            echo json_encode(array('error' => true));
+            echo json_encode(array('error' => true, 'message' => "Error"));
         }
     } else if ($selection == "delete") {
         $query = new MySQL();
         $resQuery = $query->deleteProduct(array($code));
-
+        $callQuery = $query->callAdministra(array($idUser, $code));
         if ($resQuery) {
             echo json_encode(array('error' => false));
         } else {
